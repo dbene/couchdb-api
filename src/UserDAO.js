@@ -23,8 +23,12 @@ UserDAO.prototype.findByLogin = function(login, callbacks) {
 };
 
 UserDAO.prototype.findAll = function(callbacks) {
+    // "_design/types/_view/user" returns all documents with the doctype "user"
+    // a list of users will be in data.rows[]
+    // you can access these with data.rows[<index>].value
+    // ( var user = data.rows[0].value )
     $.ajax({
-        url: this.connection.getFullUrl() + "",
+        url: this.connection.getFullUrl() + "_design/types/_view/user",
         type: "GET",
         contentType: "application/json"
     }).success(function(data, textStatus, jqXHR) {
